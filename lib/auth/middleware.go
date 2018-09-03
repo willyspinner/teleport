@@ -75,6 +75,8 @@ type TLSServer struct {
 	*http.Server
 	// TLSServerConfig is TLS server configuration used for auth server
 	TLSServerConfig
+	// poller polls client certificate authorities
+	poller *Poller
 }
 
 // NewTLSServer returns new unstarted TLS server
@@ -82,6 +84,10 @@ func NewTLSServer(cfg TLSServerConfig) (*TLSServer, error) {
 	if err := cfg.CheckAndSetDefaults(); err != nil {
 		return nil, trace.Wrap(err)
 	}
+	poller, err := NewPoller(PollerConfig{
+		Getter: cfg.AuthServer.ClientCertPool,
+	})
+
 	// limiter limits requests by frequency and amount of simultaneous
 	// connections per client
 	limiter, err := limiter.NewLimiter(cfg.LimiterConfig)
@@ -106,9 +112,24 @@ func NewTLSServer(cfg TLSServerConfig) (*TLSServer, error) {
 		Server: &http.Server{
 			Handler: limiter,
 		},
+		poller: poller,
 	}
 	server.TLS.GetConfigForClient = server.GetConfigForClient
 	return server, nil
+}
+
+func (t *TLSServer) Shutdown(ctx context.Context) error {
+	if err := t.poller.Close(); err != nil {
+		log.Warningf("Failed to close poller: %v.", err)
+	}
+	return t.Server.Shutdown(ctx)
+}
+
+func (t *TLSServer) Close() error {
+	if err := t.poller.Close(); err != nil {
+		log.Warningf("Failed to close poller: %v.", err)
+	}
+	return t.Server.Close()
 }
 
 // Serve takes TCP listener, upgrades to TLS using config and starts serving
@@ -124,13 +145,10 @@ func (t *TLSServer) GetConfigForClient(info *tls.ClientHelloInfo) (*tls.Config, 
 	// certificate authorities.
 	// TODO(klizhentas) drop connections of the TLS cert authorities
 	// that are not trusted
-	// TODO(klizhentas) what are performance implications of returning new config
-	// per connections? E.g. what happens to session tickets. Benchmark this.
-	pool, err := t.AuthServer.ClientCertPool()
+	pool, err := t.poller.CertPool()
 	if err != nil {
-		log.Errorf("failed to retrieve client pool: %v", trace.DebugReport(err))
-		// this falls back to the default config
-		return nil, nil
+		log.Errorf("Failed to retrieve client pool: %v.", err)
+		return nil, trace.AccessDenied("access denied")
 	}
 	tlsCopy := t.TLS.Clone()
 	tlsCopy.ClientCAs = pool
