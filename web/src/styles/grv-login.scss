@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 .grv-login {
-  background-color: #2f4050;
+  background-color:$grv_bg_color;
   padding-top: 5%;
   height: 100%;
   width: 100%;
@@ -22,14 +22,14 @@ limitations under the License.
   overflow: auto;
 
   .grv-icon-logo-tlpt{
-    height: 75px;
+    height: 25px;
   }
 
   .grv-content {
     padding: 10px;
     max-width: 350px;
     z-index: 100;
-    margin: 10px auto 30px;
+    margin: 10px auto 10px;
     border-radius: 6px;
     background-color: #ffffff;
 

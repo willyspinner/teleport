@@ -18,9 +18,13 @@ import React from 'react';
 import classnames from 'classnames';
 const logoSvg = require('assets/img/grv-tlpt-logo-full.svg');
 const closeSvg = require('assets/img/grv-icon-close.svg');
+const beardogSvg = require('assets/img/beardog-icon.svg');
 
 const TeleportLogo = () => (
   <svg className="grv-icon-logo-tlpt"><use xlinkHref={logoSvg}/></svg>
+)
+const BeardogLogo = () => (
+        <svg className="grv-icon-logo-berdog"><use xlinkHref={beardogSvg}/></svg>
 )
 
 const CloseIcon = () => (
@@ -41,4 +45,4 @@ const UserIcon = ({name='', isDark})=>{
   )
 };
 
-export {TeleportLogo, UserIcon, CloseIcon}
+export {TeleportLogo, UserIcon, CloseIcon,BeardogLogo}

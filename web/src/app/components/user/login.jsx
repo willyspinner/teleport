@@ -20,13 +20,14 @@ import $ from 'jQuery';
 import 'app/../assets/js/jquery-validate';
 import actions from 'app/flux/user/actions';
 import { getters } from 'app/flux/user';
-import GoogleAuthInfo from './googleAuthLogo';
+import {AuthyAuthInfo} from './googleAuthLogo';
 import cfg from 'app/config';
 import { TeleportLogo } from './../icons.jsx';
 import { withDocTitle } from './../documentTitle';
 import { ErrorMessage } from './items';
 import { SsoBtnList } from './ssoBtnList';
 import { Auth2faTypeEnum } from 'app/services/enums';
+import {BeardogLogo} from "../icons";
 
 export class Login extends React.Component {
 
@@ -49,7 +50,7 @@ export class Login extends React.Component {
 
     return (
       <div className="grv-login text-center">
-        <TeleportLogo/>
+          <BeardogLogo/>
         <div className="grv-content grv-flex">
           <div className="grv-flex-column">
             <LoginInputForm
@@ -63,6 +64,7 @@ export class Login extends React.Component {
             <LoginFooter auth2faType={auth2faType}/>
           </div>
         </div>
+          <TeleportLogo/>
       </div>
     );
   }
@@ -222,7 +224,7 @@ export class LoginInputForm extends React.Component {
     return (
       <div>
         <form ref="form" className="grv-login-input-form">
-          <h3> Welcome to Teleport </h3>
+          <h3> Welcome to BerdogPort </h3>
           {!hasAnyAuth ? <div> You have no authentication options configured </div>
             :
             <div>
@@ -240,14 +242,14 @@ export class LoginInputForm extends React.Component {
 }
 
 const LoginFooter = ({auth2faType}) => {
-  let $googleHint = auth2faType === Auth2faTypeEnum.OTP ? <GoogleAuthInfo /> : null;
+  let $googleHint = auth2faType === Auth2faTypeEnum.OTP ? <AuthyAuthInfo /> : null;
   return (
     <div>
       {$googleHint}
       <div className="grv-login-info">
         <i className="fa fa-question"></i>
         <strong>New Account or forgot password?</strong>
-        <div>Ask for assistance from your Company administrator</div>
+        <div>Ask Wilson or Beardog :)</div>
       </div>
     </div>
   )

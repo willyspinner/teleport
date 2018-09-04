@@ -24,8 +24,8 @@ import { getters } from 'app/flux/user';
 import { Auth2faTypeEnum } from 'app/services/enums';
 import { ExpiredLink } from './../msgPage';
 import { withDocTitle } from './../documentTitle';
-import { TeleportLogo } from './../icons.jsx';
-import GoogleAuthInfo from './googleAuthLogo';
+import { TeleportLogo, BeardogLogo } from './../icons.jsx';
+import {AuthyAuthInfo} from './googleAuthLogo';
 import { ErrorMessage } from './items';
 
 
@@ -65,7 +65,7 @@ export class Invite extends React.Component {
 
     return (
       <div className="grv-invite text-center">
-        <TeleportLogo />
+        <BeardogLogo/>
         <div className={containerClass}>
           <div className="grv-flex-column">
             <InviteInputForm
@@ -81,6 +81,7 @@ export class Invite extends React.Component {
             auth2faType={auth2faType}
             qr={invite.qr} />
         </div>
+          <TeleportLogo />
       </div>
     );
   }
@@ -288,7 +289,7 @@ const Invite2faData = ({auth2faType, qr}) => {
 }
 
 const InviteFooter = ({auth2faType}) => {
-  const $googleHint = auth2faType === Auth2faTypeEnum.OTP ? <GoogleAuthInfo /> : null;
+  const $googleHint = auth2faType === Auth2faTypeEnum.OTP ? <AuthyAuthInfo /> : null;
   return (
     <div>
       {$googleHint}

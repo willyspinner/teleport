@@ -29,5 +29,18 @@ const GoogleAuthInfo = () => {
     </div>
   );
 }
+const AuthyAuthInfo = () => {
+    return (
+        <div className="grv-google-auth text-left">
+            <div className="grv-icon-authy-auth"/>
+            <strong>Authy</strong>
+            <div>Download
+                <a href="https://authy.com/">
+                    <span> Authy </span>
+                </a>
+                on your phone to access your two factor token. Please don't use Google Authenticator! it sucks! (doesn't work)</div>
+        </div>
+    );
+}
 
-export default GoogleAuthInfo;
+export {GoogleAuthInfo,AuthyAuthInfo};

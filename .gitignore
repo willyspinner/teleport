@@ -13,6 +13,8 @@ web/dist/app/app
 
 # editors
 .vscode
+.idea
+dist
 
 # Compiled binaries, Object files, Static and Dynamic libs (Shared Objects)
 out

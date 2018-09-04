@@ -16,7 +16,11 @@ limitations under the License.
 
 .grv-icon-logo-tlpt{
   fill: white;
-  height: 90px;
+  height: 60px;
+}
+.grv-icon-logo-berdog{
+  fill: white;
+  height: 75px;
 }
 
 .grv-icon-close{      
@@ -44,6 +48,15 @@ limitations under the License.
     background-repeat: no-repeat;
     background-image: url("~assets/img/authenticator-icon.png");
   }
+}
+.grv-icon-authy-auth{
+  position: absolute;
+  left: 0px;
+  height: 40px;
+  width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("~assets/img/authy-icon.png");
 }
 
 .grv-icon-user {

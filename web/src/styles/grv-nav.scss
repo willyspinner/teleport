@@ -15,13 +15,13 @@ limitations under the License.
 */
 
 .grv-nav {
-  background-color: #2f4050;
+  background-color:$grv_bg_color;
   max-width: 70px;
   overflow: hidden;
   .nav {
     >li.active {
       border: none;
-      background-color: #293846;
+      background-color:$grv_bg_color_light;
     }
     li a {
       color: $nav-text-color;
@@ -29,7 +29,7 @@ limitations under the License.
       padding: 14px 20px 14px 25px;
       &:focus,
       &:hover {
-        background-color: #293846;
+        background-color: $grv_bg_color_light;
         color: #fff
       }
       i {
